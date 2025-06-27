@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 1: HTML & CSS Basics - Ishu</title>
+   
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+     <style>
+
+        /* ===================================
+   CSS Reset and Base Styles
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ===================================
+   CSS Custom Properties (Variables)
+   =================================== */
+
+:root {
+    /* Colors */
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    --text-dark: #2d3748;
+    --text-light: #718096;
+    --white: #ffffff;
+    --light-gray: #f7fafc;
+    --border-color: #e2e8f0;
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.15);
+    
+    /* Typography */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+    --font-size-5xl: 3rem;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    
+    /* Layout */
+    --container-width: 1200px;
+    --border-radius: 0.5rem;
+    --border-radius-lg: 1rem;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* ===================================
+   Typography Styles
+   =================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-dark);
+}
+
+h1 {
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+}
+
+h2 {
+    font-size: var(--font-size-3xl);
+}
+
+h3 {
+    font-size: var(--font-size-2xl);
+}
+
+h4 {
+    font-size: var(--font-size-xl);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+/* ===================================
+   Layout and Container Styles
+   =================================== */
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+/* ===================================
+   Header Styles
+   =================================== */
+
+.header {
+    background: var(--white);
+    box-shadow: var(--shadow-light);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all var(--transition-base);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.logo {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text-dark);
+    margin: 3px 0;
+    transition: all var(--transition-base);
+    transform-origin: center;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ===================================
+   Navigation Styles
+   =================================== */
+
+.navigation {
+    background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    margin: 0 var(--spacing-lg);
+}
+
+.nav-link {
+    display: block;
+    padding: var(--spacing-md) var(--spacing-sm);
+    font-weight: 500;
+    color: var(--text-light);
+    transition: all var(--transition-base);
+    position: relative;
+    font-size: var(--font-size-base);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    transition: width var(--transition-base);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ===================================
+   Main Content Styles
+   =================================== */
+
+.main-content {
+    margin-top: 8rem;
+    background: var(--white);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    min-height: calc(100vh - 8rem);
+    box-shadow: var(--shadow-heavy);
+}
+
+/* ===================================
+   Section Styles
+   =================================== */
+
+section {
+    padding: var(--spacing-3xl) 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+    font-size: var(--font-size-4xl);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -var(--spacing-md);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4rem;
+    height: 3px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: var(--border-radius);
+}
+
+/* ===================================
+   Hero Section Styles
+   =================================== */
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: center;
+    min-height: 60vh;
+}
+
+.hero-title {
+    font-size: var(--font-size-5xl);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.hero-description {
+    font-size: var(--font-size-lg);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--text-light);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder-image {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: var(--font-size-4xl);
+    text-align: center;
+    box-shadow: var(--shadow-heavy);
+    animation: float 3s ease-in-out infinite;
+}
+
+.placeholder-image p {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin: var(--spacing-md) 0 0 0;
+    color: var(--white);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ===================================
+   Button Styles
+   =================================== */
+
+.btn {
+    display: inline-block;
+    padding: var(--spacing-md) var(--spacing-2xl);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    text-align: center;
+    transition: all var(--transition-base);
+    cursor: pointer;
+    border: none;
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left var(--transition-slow);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-heavy);
+    color: var(--white);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    box-shadow: var(--shadow-light);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* ===================================
+   About Section Styles
+   =================================== */
+
+.about {
+    background: var(--light-gray);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-2xl);
+}
+
+.about-card {
+    background: var(--white);
+    padding: var(--spacing-2xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-light);
+    text-align: center;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.card-icon {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-lg);
+    display: block;
+}
+
+.about-card h3 {
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-md);
+}
+
+.about-card p {
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+/* ===================================
+   Projects Section Styles
+   =================================== */
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-2xl);
+}
+
+.project-card {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.project-image {
+    height: 200px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.placeholder-project {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.project-content {
+    padding: var(--spacing-2xl);
+}
+
+.project-content h3 {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-dark);
+}
+
+.project-content p {
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-light);
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.tag {
+    background: var(--light-gray);
+    color: var(--primary-color);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+}
+
+/* ===================================
+   Contact Section Styles
+   =================================== */
+
+.contact {
+    background: var(--light-gray);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: start;
+}
+
+.contact-info h3,
+.contact-features h3 {
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-lg);
+}
+
+.contact-details {
+    margin-top: var(--spacing-xl);
+}
+
+.contact-item {
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-light);
+}
+
+.contact-item:last-child {
+    border-bottom: none;
+}
+
+.contact-item strong {
+    color: var(--text-dark);
+    margin-right: var(--spacing-sm);
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+}
+
+.features-list li {
+    padding: var(--spacing-sm) 0;
+    color: var(--text-light);
+    position: relative;
+    padding-left: var(--spacing-lg);
+}
+
+.features-list li::before {
+    content: '✅';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-sm);
+}
+
+/* ===================================
+   Footer Styles
+   =================================== */
+
+.footer {
+    background: var(--text-dark);
+    color: var(--white);
+    padding: var(--spacing-3xl) 0 var(--spacing-xl) 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--spacing-3xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.footer-info h3,
+.footer-links h4,
+.footer-tech h4 {
+    color: var(--white);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+}
+
+.footer-info p {
+    color: #a0aec0;
+    line-height: 1.7;
+}
+
+.footer-links ul,
+.footer-tech ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li,
+.footer-tech li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-links a {
+    color: #a0aec0;
+    transition: color var(--transition-base);
+}
+
+.footer-links a:hover {
+    color: var(--white);
+}
+
+.footer-tech li {
+    color: #a0aec0;
+}
+
+.footer-bottom {
+    border-top: 1px solid #4a5568;
+    padding-top: var(--spacing-xl);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: #a0aec0;
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-note {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+}
+
+/* ===================================
+   Responsive Design - Mobile First
+   =================================== */
+
+/* Mobile Styles (320px - 767px) */
+@media (max-width: 767px) {
+    :root {
+        --font-size-5xl: 2rem;
+        --font-size-4xl: 1.75rem;
+        --font-size-3xl: 1.5rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .header .container {
+        padding: var(--spacing-md);
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .navigation {
+        position: fixed;
+        top: 4rem;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 4rem);
+        background: var(--white);
+        transition: left var(--transition-base);
+        overflow-y: auto;
+    }
+    
+    .navigation.mobile-open {
+        left: 0;
+    }
+    
+    .nav-list {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: var(--spacing-xl) 0;
+        height: 100%;
+    }
+    
+    .nav-item {
+        margin: 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .nav-link {
+        padding: var(--spacing-lg) var(--spacing-xl);
+        font-size: var(--font-size-lg);
+    }
+    
+    .hero {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-2xl);
+        text-align: center;
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .hero-image {
+        order: -1;
+    }
+    
+    .placeholder-image {
+        width: 250px;
+        height: 250px;
+        font-size: var(--font-size-3xl);
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-2xl);
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-2xl);
+        text-align: center;
+    }
+    
+    section {
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .main-content {
+        margin-top: 4rem;
+    }
+}
+
+/* Tablet Styles (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .hero {
+        gap: var(--spacing-2xl);
+    }
+    
+    .hero-title {
+        font-size: var(--font-size-4xl);
+    }
+    
+    .placeholder-image {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .about-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-content {
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+}
+
+/* Large Desktop Styles (1024px+) */
+@media (min-width: 1024px) {
+    .hero-title {
+        font-size: var(--font-size-5xl);
+    }
+    
+    .about-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Extra Large Desktop Styles (1200px+) */
+@media (min-width: 1200px) {
+    .container {
+        padding: 0 var(--spacing-2xl);
+    }
+}
+
+/* ===================================
+   Accessibility Improvements
+   =================================== */
+
+/* Focus styles for keyboard navigation */
+a:focus,
+button:focus,
+.nav-link:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .placeholder-image {
+        animation: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --text-light: #000000;
+        --border-color: #000000;
+    }
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .navigation,
+    .mobile-menu-btn,
+    .hero-buttons,
+    .footer {
+        display: none;
+    }
+    
+    .main-content {
+        margin-top: 0;
+        box-shadow: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .section-title,
+    .hero-title,
+    .logo {
+        color: black !important;
+        -webkit-text-fill-color: black !important;
+    }
+}
+
+     </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Web Development Portfolio</h1>
+            <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navigation">
+        <div class="container">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section id="home" class="hero">
+                <div class="hero-content">
+                    <h2 class="hero-title">Welcome to My Web Development Journey</h2>
+                    <p class="hero-subtitle">Assignment 1: HTML and CSS Basics</p>
+                    <p class="hero-description">
+                        This webpage demonstrates proficiency in HTML and CSS fundamentals, 
+                        including semantic HTML structure, modern CSS styling, and responsive 
+                        design principles for optimal viewing across all devices.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#about" class="btn btn-primary">Learn More</a>
+                        <a href="#projects" class="btn btn-secondary">View Projects</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="placeholder-image">
+                        <span>📱💻🎨</span>
+                        <p>Responsive Design</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="about">
+                <h2 class="section-title">About This Assignment</h2>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="card-icon">🏗️</div>
+                        <h3>HTML Structure</h3>
+                        <p>Semantic HTML5 elements including header, navigation, main content, and footer sections with proper document structure and accessibility considerations.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>CSS Styling</h3>
+                        <div class="card-icon">🎨</div>
+                        <p>Custom CSS with modern styling techniques, including flexbox layout, CSS Grid, custom properties, and smooth animations for enhanced user experience.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="card-icon">📱</div>
+                        <h3>Responsive Design</h3>
+                        <p>Mobile-first responsive design approach using CSS media queries, flexible layouts, and scalable typography for optimal viewing on all screen sizes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="projects">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-image">
+                            <div class="placeholder-project">HTML5</div>
+                        </div>
+                        <div class="project-content">
+                            <h3>HTML Fundamentals</h3>
+                            <p>Demonstrating semantic HTML structure, proper document outline, and accessibility best practices for modern web development.</p>
+                            <div class="project-tags">
+                                <span class="tag">HTML5</span>
+                                <span class="tag">Semantic</span>
+                                <span class="tag">Accessibility</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-image">
+                            <div class="placeholder-project">CSS3</div>
+                        </div>
+                        <div class="project-content">
+                            <h3>CSS Styling</h3>
+                            <p>Advanced CSS techniques including flexbox, grid layout, custom properties, animations, and modern styling approaches.</p>
+                            <div class="project-tags">
+                                <span class="tag">CSS3</span>
+                                <span class="tag">Flexbox</span>
+                                <span class="tag">Grid</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-image">
+                            <div class="placeholder-project">RWD</div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Responsive Design</h3>
+                            <p>Mobile-first responsive design implementation ensuring optimal user experience across desktop, tablet, and mobile devices.</p>
+                            <div class="project-tags">
+                                <span class="tag">Responsive</span>
+                                <span class="tag">Mobile-First</span>
+                                <span class="tag">Media Queries</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="contact">
+                <h2 class="section-title">Contact Information</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <p>This assignment demonstrates the foundational skills in HTML and CSS required for modern web development. The webpage showcases semantic HTML structure, custom CSS styling, and responsive design principles.</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <strong>Student:</strong> Ishu
+                            </div>
+                            <div class="contact-item">
+                                <strong>Course:</strong> Web Development Fundamentals
+                            </div>
+                            <div class="contact-item">
+                                <strong>Assignment:</strong> HTML & CSS Basics
+                            </div>
+                            <div class="contact-item">
+                                <strong>Date:</strong> June 27, 2025
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-features">
+                        <h3>Technical Features Implemented</h3>
+                        <ul class="features-list">
+                            <li>✅ Semantic HTML5 structure</li>
+                            <li>✅ Custom CSS styling</li>
+                            <li>✅ Responsive design (mobile-first)</li>
+                            <li>✅ Modern typography with Google Fonts</li>
+                            <li>✅ CSS Grid and Flexbox layouts</li>
+                            <li>✅ Smooth animations and transitions</li>
+                            <li>✅ Accessible navigation</li>
+                            <li>✅ Cross-browser compatibility</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Assignment 1: HTML & CSS Basics</h3>
+                    <p>A comprehensive demonstration of foundational web development skills including semantic HTML structure, modern CSS styling techniques, and responsive design principles.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-tech">
+                    <h4>Technologies Used</h4>
+                    <ul>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>Google Fonts</li>
+                        <li>Responsive Design</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ishu. All rights reserved. | Assignment 1: HTML and CSS Basics</p>
+                <p class="footer-note">This webpage was created as part of a web development course assignment to demonstrate proficiency in HTML and CSS fundamentals.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navigation = document.querySelector('.navigation');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navigation.classList.toggle('mobile-open');
+                mobileMenuBtn.classList.toggle('active');
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Active navigation highlighting
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
